@@ -1,0 +1,32 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<main class="container mt-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card p-4 shadow-sm">
+                <h2 class="mb-4 text-center">Login</h2>
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Usuário ou senha inválidos.
+                    </div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Usuário</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Senha</label>
+                        {{ form.password }}
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

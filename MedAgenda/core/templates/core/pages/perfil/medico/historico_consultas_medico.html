@@ -1,0 +1,105 @@
+{% extends "core/base/base_users.html" %}
+
+{% load static %}
+
+{% block title %} Med Agenda | Histórico de Consultas {% endblock %}
+
+{% block content %}
+<main class="container mt-5 bg-success p-4 rounded shadow-sm">
+    <section class="mb-5">
+        <h1 class="fs-3 fw-semibold mb-3 text-center text-white">Histórico de Consultas</h1>
+        <p class="text-center text-white">Veja seu histórico de consultas.</p>
+        <section class="mb-5">
+        <div class="row g-4">
+            {% for consulta in consultas %}
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title fs-5 fw-semibold">Consulta: 
+                            {{ consulta.tipo }}
+                        </h3>
+                        <p class="card-text text-secondary">
+                            <i class="fa-solid fa-user-doctor"></i> <strong>Médico:</strong> {{ consulta.medico }}
+                        </p>
+                        <p class="card-text text-secondary">
+                            <i class="fa-solid fa-hospital-user"></i> <strong>Paciente:</strong> {{ consulta.paciente }}
+                        </p>
+                        <p class="card-text text-secondary">
+                            <i class="fa-solid fa-calendar-days"></i> <strong>Data:</strong> {{ consulta.data|date:"d/m/Y" }}
+                        </p>
+                        <p class="card-text text-secondary">
+                            <i class="fa-solid fa-clock"></i> <strong>Horário:</strong> {{ consulta.horario|time:"H:i"}}
+                        </p>
+                        {% if consulta.observacoes %}
+                            <p class="card-text text-secondary">
+                                <i class="fa-solid fa-file-lines"></i> <strong>Observações:</strong> {{ consulta.observacoes }}
+                            </p>
+                        {% endif %}
+                        <label class="form-label text-secondary">
+                            <i class="fa-solid fa-star"></i> <strong>Avaliação:</strong>
+                        </label>
+                        <div class="star-rating">
+                            {% if consulta.avaliacao == 0 %}
+                            <span class="star text-secondary">&#9734;</span> <!-- Estrela vazia -->
+                            {% endif %}
+
+                            {% if consulta.avaliacao == 1 %}
+                                {% for i in "1" %}
+                                <span class="star text-warning">&#9733;</span>
+                            {% endfor %}
+
+                            {% elif consulta.avaliacao == 2 %}
+                                {% for i in "12" %}
+                                <span class="star text-warning">&#9733;</span>
+                                {% endfor %}
+
+                            {% elif consulta.avaliacao == 3 %}
+                                {% for i in "123" %}
+                                <span class="star text-warning">&#9733;</span>
+                                {% endfor %}
+
+                            {% elif consulta.avaliacao == 4 %}
+                                {% for i in "1234" %}
+                                <span class="star text-warning">&#9733;
+                                {% endfor %}
+
+                            {% elif consulta.avaliacao == 5 %}
+                                {% for i in "12345" %}
+                                <span class="star text-warning">&#9733;</span>
+                                {% endfor %}    
+                            {% endif %}     
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-secondary">Nenhuma consulta encontrada.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <nav aria-label="Paginação">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Anterior</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Próxima</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    </section>
+</main>
+
+{% endblock %}

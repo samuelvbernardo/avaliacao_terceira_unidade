@@ -1,0 +1,83 @@
+{% extends "core/base/base_admin.html" %}
+{% load static %}
+
+{% block title %} Med Agenda | Pacientes {% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <div class="mt-4 p-4 bg-dark rounded shadow-sm">
+        <h1 class="fs-3 mb-4 text-center text-white">Lista de Pacientes</h1>
+        <!-- Formulário de busca -->
+        <form method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="q_paciente" class="form-control" placeholder="Buscar pacientes..." value="{{ request.GET.q_paciente }}">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </form>
+        <!-- Tabela de pacientes -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Idade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paciente in pacientes %}
+                    <tr>
+                        <td>{{ paciente.nome }}</td>
+                        <td>{{ paciente.email }}</td>
+                        <td>{{ paciente.telefone }}</td>
+                        <td>{{ paciente.idade }}</td>
+                        <td>
+                            <button type="button"
+                                class="btn btn-sm btn-primary text-white btn-detalhe-paciente"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDetalhePaciente"
+                                data-usuario="{{ paciente.user.username }}"
+                                data-nome="{{ paciente.nome }}"
+                                data-email="{{ paciente.email }}"
+                                data-telefone="{{ paciente.telefone }}"
+                                data-idade="{{ paciente.idade }}"
+                                data-peso="{{ paciente.peso }}"
+                                data-altura="{{ paciente.altura }}"
+                                title="Ver detalhes">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <a href="{% url 'excluir_paciente' paciente.pk %}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">Nenhum paciente cadastrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        <!-- Modal Detalhe Paciente -->
+        <div class="modal fade" id="modalDetalhePaciente" tabindex="-1" aria-labelledby="modalDetalhePacienteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDetalhePacienteLabel">Informações do Paciente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                <div class="modal-body">
+                    <p><strong>Usuario:</strong> <span id="modal-usuario-paciente"></span></p>
+                    <p><strong>Nome:</strong> <span id="modal-paciente-nome"></span></p>
+                    <p><strong>Email:</strong> <span id="modal-paciente-email"></span></p>
+                    <p><strong>Telefone:</strong> <span id="modal-paciente-telefone"></span></p>
+                    <p><strong>Idade:</strong> <span id="modal-paciente-idade"></span></p>
+                    <p><strong>Altura:</strong> <span id="modal-paciente-altura"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>    
+</main>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "core/base/base_admin.html" %}
+
+{% load static %}
+
+{% block title %} Med Agenda | Consultas Agendadas {% endblock %}
+
+{% block content %}
+
+<div class="mt-4 p-4 bg-white rounded shadow-sm">
+        <h2 class="mb-3">Consultas Agendadas</h2>
+
+        <div class="mt-4 p-4 bg-white">
+        <!-- Form de busca -->
+        <form method="get" class="mb-4" id="form-busca">
+            <div class="input-group">
+                <input type="text" id="campo-busca" placeholder="Buscar consultas..." class="form-control">
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+                
+        <!-- Tabela -->
+        <div class="table-responsive mb-4">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Consulta</th>
+                        <th>Médico</th>
+                        <th>Paciente</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Avaliação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-consultas">
+                    {% for consulta in consultas %}
+                    <tr>
+                        <td>{{ consulta.tipo }}</td>
+                        <td>{{ consulta.medico }}</td>
+                        <td>{{ consulta.paciente }}</td>
+                        <td>{{ consulta.data|date:"d/m/Y" }}</td>
+                        <td>{{ consulta.horario|time:"H:i" }}</td>
+                        <td>{{ consulta.avaliacao }}</td>
+                        <td>
+                            <a href="{% url 'editar_agendamento' consulta.pk %}" class="btn btn-sm btn-warning" style="width: 40px;"><i class="fa-solid fa-pencil"></i></a>
+                            <a href="{% url 'excluir_agendamento' consulta.pk %}" class="btn btn-sm btn-danger" style="width: 40px;"><i class="fa-solid fa-xmark"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">Nenhuma consulta agendada.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

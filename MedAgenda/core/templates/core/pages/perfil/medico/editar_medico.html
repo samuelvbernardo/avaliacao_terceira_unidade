@@ -1,0 +1,82 @@
+{% extends "core/base/base_users.html" %}
+
+{% load static %}
+{% load tz %}
+
+{% block title %} Med Agenda | Perfil {% endblock title %}
+
+{% block content %}
+<main class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="row">
+                <!-- Coluna 1: Informações detalhadas -->
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <h5 class="text-center mt-2">Suas Informações</h5>
+                            <div class="mt-4">
+                                <p><strong>Nome:</strong> {{ medico.nome }}</p>
+                                <p><strong>Especialidade:</strong> {{ medico.especialidade }}</p>
+                                <p><strong>CRM:</strong> {{ medico.crm }}</p>
+                                <p><strong>Telefone:</strong> {{ medico.telefone }}</p>
+                                <p><strong>E-mail:</strong> {{ medico.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Coluna 2: Formulário de edição -->
+                <div class="col-md-7">
+                    <div class="card shadow rounded-4">
+                        <div class="card-body p-4">
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Fechar"></button>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            <h2 class="text-center mb-4">Editar Perfil</h2>
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome"
+                                        value="{{ medico.nome }}" required>
+                                    <label for="nome">Nome</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="especialidade" id="especialidade" class="form-control"
+                                        placeholder="Especialidade" required value="{{ medico.especialidade }}">
+                                    <label for="especialidade">Especialidade</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="crm" id="crm" class="form-control" placeholder="CRM"
+                                        value="{{ medico.crm }}" required>
+                                    <label for="crm">CRM</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="telefone" id="telefone" placeholder="Telefone"
+                                        class="form-control" value="{{ medico.telefone }}">
+                                    <label for="telefone">Telefone</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email"
+                                        value="{{ medico.email }}">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success rounded-3">
+                                        Salvar Alterações
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

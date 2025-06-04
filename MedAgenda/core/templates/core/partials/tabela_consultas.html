@@ -1,0 +1,18 @@
+{% for consulta in consultas %}
+<tr>
+    <td>{{ consulta.tipo }}</td>
+    <td>{{ consulta.medico }}</td>
+    <td>{{ consulta.paciente }}</td>
+    <td>{{ consulta.data|date:"d/m/Y" }}</td>
+    <td>{{ consulta.horario|time:"H:i" }}</td>
+    <td>{{ consulta.avaliacao }}</td>
+    <td>
+        <a href="{% url 'editar_agendamento' consulta.pk %}" class="btn btn-sm btn-warning" style="width: 40px"><i class="fa-solid fa-pencil"></i></a>
+        <a href="{% url 'excluir_agendamento' consulta.pk %}" class="btn btn-sm btn-danger" style="width: 40px"><i class="fa-solid fa-xmark"></i></a>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center">Nenhuma consulta encontrada.</td>
+</tr>
+{% endfor %}

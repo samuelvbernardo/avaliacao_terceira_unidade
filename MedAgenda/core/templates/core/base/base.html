@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    {% include "core/partials/head.html" %}
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <header>
+        {% block nav %}{% endblock nav %}
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-fill">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+        {% block content_footer %}{% endblock content_footer %}
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'core/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'core/js/index.js' %}"></script>
+</body>
+
+</html>

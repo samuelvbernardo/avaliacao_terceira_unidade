@@ -1,0 +1,92 @@
+{% extends "core/base/base_users.html" %}
+
+{% load static %}
+
+{% load tz %}
+
+{% block title %}Med Agenda | Perfil{% endblock title %}
+
+{% block content %}
+<main class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="row">
+                <!-- Coluna 1: Informações detalhadas -->
+                <div class="col-md-5 mb-4">
+                    <div class="card shadow rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <h5 class="text-center mt-2">Suas Informações</h5>
+                            <div class="mt-4">
+                                <p><strong>Nome:</strong> {{ paciente.nome }}</p>
+                                <p><strong>E-mail:</strong> {{ paciente.email }}</p>
+                                <p><strong>Telefone:</strong> {{ paciente.telefone }}</p>
+                                <p><strong>Idade:</strong> {{ paciente.idade }}</p>
+                                <p><strong>Peso:</strong> {{ paciente.peso }} kg</p>
+                                <p><strong>Altura:</strong> {{ paciente.altura }} m</p>
+                                e:"d/m/Y"}} 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Coluna 2: Formulário de edição -->
+                <div class="col-md-7">
+                    <div class="card shadow rounded-4">
+                        <div class="card-body p-4">
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Fechar"></button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            <h2 class="text-center mb-4">Editar Perfil</h2>
+                            <form method="post" enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nome" name="nome"
+                                        placeholder="Nome Completo" 
+                                        value="{{ paciente.nome }}" required>
+                                    <label for="nome">Nome Completo</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="E-mail" 
+                                        value="{{ paciente.email }}" required>
+                                    <label for="email">E-mail</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="telefone" name="telefone"
+                                        placeholder="Telefone" 
+                                        value="{{ paciente.telefone }}">
+                                    <label for="telefone">Telefone</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="idade" name="idade"
+                                        placeholder="Idade" value="{{ paciente.idade }}">
+                                    <label for="idade">Idade</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" step="0.01" class="form-control" id="peso" name="peso"
+                                        placeholder="Peso (kg)" value="{{ paciente.peso }}">
+                                    <label for="peso">Peso (kg)</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" step="0.01" class="form-control" id="altura" name="altura"
+                                        placeholder="Altura (m)" value="{{ paciente.altura }}">
+                                    <label for="altura">Altura (m)</label>
+                                </div>
+                                <div class="d-grid mt-4 text-center">
+                                    <button type="submit" class="btn btn-success rounded-3">Salvar Alterações</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

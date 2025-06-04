@@ -1,0 +1,79 @@
+{% extends "core/base/base_users.html" %}
+
+{% load static %}
+
+{% block title %}Consultas do Médico{% endblock %}
+
+
+{% block content %}
+<main class="container mt-5 bg-white p-4 rounded shadow-sm">
+    <h2 class="mb-4 text-center">Consultas Agendadas</h2>
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>Paciente</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+            <tr>
+                <td>{{ consulta.paciente.nome }}</td>
+                <td>{{ consulta.data }}</td>
+                <td>{{ consulta.horario }}</td>
+                <td>{{ consulta.get_status_display }}</td>
+                <td>
+                    {% if consulta.status == 'A' %}
+                        <!-- Botão para abrir o modal -->
+                        <button 
+                            class="btn btn-success btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#finalizarModal" 
+                            data-consulta-id="{{ consulta.pk }}">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </button>
+                        <a href="{% url 'cancelar_consulta' consulta.pk %}" class="btn btn-danger btn-sm"><i class="fa-regular fa-rectangle-xmark"></i></a>
+                    {% elif consulta.status == 'R' %}
+                        <span class="text-success">Realizada</span>
+                    {% elif consulta.status == 'C' %}
+                        <span class="text-danger">Cancelada</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">Nenhuma consulta encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="finalizarModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" id="finalizarForm">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="finalizarModalLabel">Finalizar Consulta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="observacoes" class="form-label">Observações</label>
+            <textarea name="observacoes" id="observacoes" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">Finalizar Consulta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

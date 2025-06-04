@@ -1,0 +1,59 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+
+{% block title %} Med Agenda | Agendar Consulta {% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <div class="mt-4 p-4 bg-white rounded shadow-sm">
+        <h1 class="fs-3 fw-semibold mb-4">Agendar Nova Consulta</h1>
+        <form method="post" class="row g-3 mb-4">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="medico" class="form-label">Médico</label>
+                <select name="medico" id="medico" class="form-select" required>
+                    <option value="">-- Selecione um médico --</option>
+                    {% for medico in medicos %}
+                    <option value="{{ medico.id }}">{{ medico.nome }} - {{medico.especialidade}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="paciente" class="form-label">Paciente</label>
+                <select name="paciente" id="paciente" class="form-select" required>
+                    <option value="">-- Selecione um paciente --</option>
+                    {% for paciente in pacientes %}
+                    <option value="{{ paciente.id }}">{{ paciente.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="horario" class="form-label">Horário</label>
+                <input type="time" id="horario" name="horario" value="{{ consulta.horario }}" placeholder="Horário"
+                    class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label for="data" class="form-label">Data</label>
+                <input type="date" name="data" id="data" value="{{ consulta.data|date:'Y-m-d' }}" class="form-control"
+                    required>
+            </div>
+            <div class="col-12 mt-3 text-end">
+                <button type="submit" class="btn btn-primary me-2">Agendar</button>
+                <a href="{% url 'criar_agendamento' %}" class="btn btn-secondary">Limpar</a>
+            </div>
+            {% if sucesso %}
+            <div class="alert alert-success mt-4 col-12">
+                <strong>Consulta criada com sucesso!</strong>
+                <ul class="mb-0 mt-2">
+                    <li><strong>Médico:</strong> {{ consulta.medico }}</li>
+                    <li><strong>Paciente:</strong> {{ consulta.paciente }}</li>
+                    <li><strong>Data:</strong> {{ consulta.data|date:"d/m/Y" }}</li>
+                    <li><strong>Horário:</strong> {{ consulta.horario|time:"H:i" }}</li>
+                </ul>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</main>
+{% endblock %}

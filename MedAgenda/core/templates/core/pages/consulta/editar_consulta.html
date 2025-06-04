@@ -1,0 +1,76 @@
+{% extends "core/base/base.html" %}
+{% load static %}
+
+{% block title %} Med Agenda | Editar Consulta {% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <h1 class="fs-3 fw-semibold mb-4">Editar Consulta</h1>
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" action="" class="row g-3 mb-4">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+            <label for="medico" class="form-label">Médico</label>
+            <select name="medico" id="medico" class="form-select" required>
+                <option value="">-- Selecione um médico --</option>
+                {% for medico in medicos %}
+                <option value="{{ medico.id }}" {% if form.instance.medico and form.instance.medico.id == medico.id %}selected{% endif %}>{{ medico.nome }} - {{medico.especialidade}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="paciente" class="form-label">Paciente</label>
+            <select name="paciente" id="paciente" class="form-select" required>
+                <option value="">-- Selecione um paciente --</option>
+                {% for paciente in pacientes %}
+                <option value="{{ paciente.id }}" {% if form.instance.paciente and form.instance.paciente.id == paciente.id %}selected{% endif %}>{{ paciente.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="horario" class="form-label">Horário</label>
+            <input type="time" id="horario" name="horario" value="{{ form.instance.horario|time:'H:i' }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" name="data" id="data" value="{{ form.instance.data|date:'Y-m-d' }}" class="form-control" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="avaliacao" class="form-label">Avaliação</label>
+            <select name="avaliacao" id="avaliacao" class="form-select">
+                <option value="">----------</option>
+                <option value="1">1 Estrela</option>                    
+                <option value="2">2 Estrelas</option>
+                <option value="3">3 Estrelas</option>                    
+                <option value="4">4 Estrelas</option>
+                <option value="5">5 Estrelas</option>
+            </select>
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary me-2">Salvar Alterações</button>
+            <a href="{% url 'criar_agendamento' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</main>
+{% endblock %}

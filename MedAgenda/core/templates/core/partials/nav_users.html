@@ -1,0 +1,45 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+        <a class="navbar-brand fs-4 fw-bold" href="{% url 'home' %}"> MedAgenda </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto text-center text-lg-start">
+                <li class="nav-item">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </li>
+                {% if paciente %}
+                    <li class="nav-item">
+                        <a href="{% url 'agendar_consultas' %}" class="nav-link">Consultas</a>
+                    </li>
+                {% elif medico %}
+                    <li class="nav-item">
+                        <a href="{% url 'consultas_medico' %}" class="nav-link">Consultas</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{% url 'historico' %}" class="nav-link">Histórico</a>
+                </li>
+
+                {% if medico %}
+                    <li class="nav-item">
+                        <a href="{% url 'editar_medico' medico.pk %}" class="nav-link">Perfil</a>
+                    </li>
+
+                {% elif paciente %}  
+                    <li class="nav-item">
+                        <a href="{% url 'editar_paciente' paciente.pk %}" class="nav-link">Perfil</a>
+                    </li>  
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

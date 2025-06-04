@@ -1,0 +1,25 @@
+{% extends "core/base/base.html" %}
+
+{% load static %}
+
+{% block title %}Completar Cadastro de Medico{% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    
+    <div class="mt-4 p-4 bg-white rounded shadow-sm">
+        <h2 class="text-center mb-5">Complete seu cadastro de Médico</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="nome" placeholder="Nome" class="form-control mb-2" required>
+            <input type="text" name="especialidade" placeholder="Especialidade" class="form-control mb-2" required>
+            <input type="text" name="crm" placeholder="CRM" class="form-control mb-2" required>
+            <input type="text" name="telefone" placeholder="Telefone" class="form-control mb-2">
+            <input type="email" name="email" placeholder="Email" class="form-control mb-2">
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success rounded-3 mt-4"> Cadastrar-se </button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

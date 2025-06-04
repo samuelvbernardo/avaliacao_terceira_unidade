@@ -1,0 +1,98 @@
+{% extends "core/base/base_users.html" %}
+{% block content %}
+<main class="container mt-5 bg-white p-4 rounded shadow-sm">
+    <h2 class="text-center">Agendar Consulta</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="medico" class="form-label">Médico</label>
+            <select name="medico" id="medico" class="form-select" required>
+                <option value="">Selecione</option>
+                {% for medico in medicos %}
+                    <option value="{{ medico.id }}">{{ medico.nome }} - {{ medico.especialidade }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" name="data" id="data" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="horario" class="form-label">Horário</label>
+            <input type="time" name="horario" id="horario" class="form-control" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success rounded-3 mt-4">Agendar</button>
+        </div>
+    </form>
+
+    <h3 class="mt-5 mb-3 text-center">Minhas Consultas</h3>
+    <table class="table table-striped">
+        <thead class="table-primary">
+            <tr>
+                <th>Médico</th>
+                <th>Especialidade</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+                {% if consulta.status == 'A' %}
+                <tr>
+                    <td>{{ consulta.medico.nome }}</td>
+                    <td>{{ consulta.medico.especialidade }}</td>
+                    <td>{{ consulta.data|date:"d/m/Y" }}</td>
+                    <td>{{ consulta.horario|time:"H:i" }}</td>
+                    <td>{{ consulta.get_status_display }}</td>
+                    <td>
+                        <button 
+                            type="button"
+                            class="btn btn-danger btn-sm btn-cancelar-consulta"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCancelarConsulta"
+                            data-consulta-id="{{ consulta.pk }}"><i class="fa-solid fa-rectangle-xmark"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endif %}
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">Nenhuma consulta encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Modal de confirmação de cancelamento -->
+    <div class="modal fade" id="modalCancelarConsulta" tabindex="-1" aria-labelledby="modalCancelarConsultaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" id="formCancelarConsulta">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCancelarConsultaLabel">Cancelar Consulta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja cancelar esta consulta?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-danger">Sim, cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</main>
+{% endblock %}

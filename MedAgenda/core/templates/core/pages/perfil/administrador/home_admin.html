@@ -1,0 +1,18 @@
+{% extends "core/base/base_admin.html" %}
+
+{% load static %}
+
+{% block title %} Med Agenda | Administrador {% endblock %}
+
+{% block content %}
+<main class="container mt-5">
+    <section class="text-center">
+        <h1 class="fs-2 fw-bold">Bem-vindo, {{ nome_usuario }}</h1>
+        <p class="text-secondary">
+            Esta é a área de administrador. Gerencie consultas, medicos e pacientes de sua clinica
+            de forma simples e rápida.
+        </p>
+    </section>
+</main>
+{% endblock %}
+
