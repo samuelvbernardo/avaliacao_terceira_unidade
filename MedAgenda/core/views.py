@@ -242,12 +242,12 @@ class ConsultaListView(ListView):
     def get_queryset(self):
         user = self.request.user
         perfil = getattr(user, 'perfil', None)
-        queryset = Consulta.objects.all().order_by("-data", "-horario")
+        queryset = Consulta.objects.filter(status='R').order_by("-data", "-horario")
         if perfil:
             if perfil.tipo == 'medico' and hasattr(user, 'medico'):
-                queryset = queryset.filter(medico=user.medico)
+                queryset = queryset.filter(medico=user.medico).order_by('-data', '-horario')
             elif perfil.tipo == 'paciente' and hasattr(user, 'paciente'):
-                queryset = queryset.filter(paciente=user.paciente)
+                queryset = queryset.filter(paciente=user.paciente).order_by('-data', '-horario')
             # admin vê todas as consultas
         return queryset
 
