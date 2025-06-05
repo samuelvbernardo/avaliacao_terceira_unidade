@@ -314,11 +314,6 @@ class ConsultasAgendadasAdminView(ListView):
             )
         return queryset
 
-class PacienteDeleteView(LoginRequiredMixin, DeleteView):
-    model = Paciente
-    template_name = "core/pages/perfil/paciente/confirmar_exclusao.html"
-    success_url = reverse_lazy("listar_pacientes")
-
 class BuscarConsultasView(View):
     def get(self, request):
         termo = request.GET.get("q", "")

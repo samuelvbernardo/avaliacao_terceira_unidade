@@ -24,7 +24,6 @@ urlpatterns = [
     path('medicos/', views.MedicoListView.as_view(), name='listar_medicos'),
     path('completar-cadastro/paciente/', CompletarCadastroPacienteView.as_view(), name='completar_cadastro_paciente'),
     path('paciente/<int:pk>/editar/', views.PacienteUpdateView.as_view(), name='editar_paciente'),
-    path('paciente/<int:pk>/excluir/', views.PacienteDeleteView.as_view(), name='excluir_paciente'),
     path('pacientes/', views.PacienteListView.as_view(), name='listar_pacientes'),
     path("consulta/", ConsultaCreateView.as_view(), name="agendar_consultas"),
     path("consulta/<int:pk>/finalizar/", ConsultaFinalizarView.as_view(), name="finalizar_consulta"),
