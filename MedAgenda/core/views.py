@@ -314,12 +314,6 @@ class ConsultasAgendadasAdminView(ListView):
             )
         return queryset
 
-    
-class MedicoDeleteView(LoginRequiredMixin, DeleteView):
-    model = Medico
-    template_name = "core/pages/perfil/medico/confirmar_exclusao.html"
-    success_url = reverse_lazy("listar_medicos")
-
 class PacienteDeleteView(LoginRequiredMixin, DeleteView):
     model = Paciente
     template_name = "core/pages/perfil/paciente/confirmar_exclusao.html"

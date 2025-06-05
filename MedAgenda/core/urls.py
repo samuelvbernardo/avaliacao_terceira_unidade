@@ -21,7 +21,6 @@ urlpatterns = [
     path("home", HomeView.as_view(), name="home"),
     path('completar-cadastro/medico/', CompletarCadastroMedicoView.as_view(), name='completar_cadastro_medico'),
     path('medico/<int:pk>/editar/', views.MedicoUpdateView.as_view(), name='editar_medico'),
-    path('medico/<int:pk>/excluir/', views.MedicoDeleteView.as_view(), name='excluir_medico'),
     path('medicos/', views.MedicoListView.as_view(), name='listar_medicos'),
     path('completar-cadastro/paciente/', CompletarCadastroPacienteView.as_view(), name='completar_cadastro_paciente'),
     path('paciente/<int:pk>/editar/', views.PacienteUpdateView.as_view(), name='editar_paciente'),
