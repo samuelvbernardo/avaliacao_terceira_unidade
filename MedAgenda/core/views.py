@@ -285,6 +285,18 @@ class ConsultasAgendadasMedicoView(ListView):
     template_name = "core/pages/perfil/medico/consultas_medico.html"
     paginate_by = 8
 
+    def get_queryset(self):
+        return Consulta.objects.filter(
+            medico__user=self.request.user,
+            status='A'
+        ).order_by('data', 'horario')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if hasattr(self.request.user, 'medico'):
+            context['medico'] = self.request.user.medico
+        return context
+
 
 class ConsultasAgendadasAdminView(ListView):
     model = Consulta
