@@ -74,9 +74,13 @@ WSGI_APPLICATION = "MedAgenda.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'med_agenda',       
+        'USER': 'postgres',
+        'PASSWORD': '7458',
+        'HOST': 'localhost',
+        'PORT': '5432',                     
     }
 }
 
