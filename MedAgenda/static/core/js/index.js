@@ -38,26 +38,29 @@ document.addEventListener("DOMContentLoaded", function() {
     // Script para preencher o modal de detalhes do médico
     document.querySelectorAll('.btn-detalhe-medico').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            document.getElementById('modal-nome').textContent = btn.getAttribute('data-nome');
-            document.getElementById('modal-usuario').textContent = btn.getAttribute('data-usuario');
-            document.getElementById('modal-email').textContent = btn.getAttribute('data-email');
-            document.getElementById('modal-especialidade').textContent = btn.getAttribute('data-especialidade');
-            document.getElementById('modal-crm').textContent = btn.getAttribute('data-crm');
+            document.getElementById('modal-nome').textContent = btn.getAttribute('data-nome') || '---';
+            document.getElementById('modal-usuario').textContent = btn.getAttribute('data-usuario') || '---';
+            document.getElementById('modal-email').textContent = btn.getAttribute('data-email') || '---';
+            document.getElementById('modal-especialidade').textContent = btn.getAttribute('data-especialidade') || '---';
+            document.getElementById('modal-crm').textContent = btn.getAttribute('data-crm') || '---';
             document.getElementById('modal-telefone').textContent = btn.getAttribute('data-telefone') || '---';
-            document.getElementById('modal-entrada').textContent = btn.getAttribute('data-entrada');
-            document.getElementById('modal-ultimo-login').textContent = btn.getAttribute('data-ultimo-login');
+            document.getElementById('modal-entrada').textContent = btn.getAttribute('data-entrada') || '---';
+            document.getElementById('modal-ultimo-login').textContent = btn.getAttribute('data-ultimo-login') || '---';
         });
     });
 
     // Script para preencher o modal de detalhes do paciente
     document.querySelectorAll('.btn-detalhe-paciente').forEach(function(btn) {
         btn.addEventListener('click', function() {
-            document.getElementById('modal-usuario-paciente').textContent = btn.getAttribute('data-usuario');
-            document.getElementById('modal-paciente-nome').textContent = btn.getAttribute('data-nome');
-            document.getElementById('modal-paciente-email').textContent = btn.getAttribute('data-email');
-            document.getElementById('modal-paciente-telefone').textContent = btn.getAttribute('data-telefone');
-            document.getElementById('modal-paciente-idade').textContent = btn.getAttribute('data-idade');
-            document.getElementById('modal-paciente-altura').textContent = btn.getAttribute('data-altura');
+            document.getElementById('modal-usuario-paciente').textContent = btn.getAttribute('data-usuario') || '---';
+            document.getElementById('modal-paciente-nome').textContent = btn.getAttribute('data-nome') || '---';
+            document.getElementById('modal-paciente-email').textContent = btn.getAttribute('data-email') || '---';
+            document.getElementById('modal-paciente-telefone').textContent = btn.getAttribute('data-telefone') || '---';
+            document.getElementById('modal-paciente-idade').textContent = btn.getAttribute('data-idade') || '---';
+            document.getElementById('modal-paciente-altura').textContent = btn.getAttribute('data-altura') || '---';
+            document.getElementById('modal-paciente-peso').textContent = btn.getAttribute('data-peso') || '---';
+            document.getElementById('modal-paciente-entrada').textContent = btn.getAttribute('data-entrada') || '---';
+            document.getElementById('modal-paciente-ultimo-login').textContent = btn.getAttribute('data-ultimo-login') || '---';
         });
     });
     

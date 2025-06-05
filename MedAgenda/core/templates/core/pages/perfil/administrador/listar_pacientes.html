@@ -47,10 +47,11 @@
                                 data-idade="{{ paciente.idade }}"
                                 data-peso="{{ paciente.peso }}"
                                 data-altura="{{ paciente.altura }}"
+                                data-entrada="{{ paciente.user.date_joined|date:'d/m/Y' }}"
+                                data-ultimo-login="{{ paciente.user.last_login|date:'d/m/Y H:i' }}"
                                 title="Ver detalhes">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <a href="{% url 'excluir_paciente' paciente.pk %}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                     {% empty %}
@@ -68,16 +69,21 @@
                         <h5 class="modal-title" id="modalDetalhePacienteLabel">Informações do Paciente</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
-                <div class="modal-body">
-                    <p><strong>Usuario:</strong> <span id="modal-usuario-paciente"></span></p>
-                    <p><strong>Nome:</strong> <span id="modal-paciente-nome"></span></p>
-                    <p><strong>Email:</strong> <span id="modal-paciente-email"></span></p>
-                    <p><strong>Telefone:</strong> <span id="modal-paciente-telefone"></span></p>
-                    <p><strong>Idade:</strong> <span id="modal-paciente-idade"></span></p>
-                    <p><strong>Altura:</strong> <span id="modal-paciente-altura"></span></p>
+                    <div class="modal-body">
+                        <p><strong>Usuario:</strong> <span id="modal-usuario-paciente"></span></p>
+                        <p><strong>Nome:</strong> <span id="modal-paciente-nome"></span></p>
+                        <p><strong>Email:</strong> <span id="modal-paciente-email"></span></p>
+                        <p><strong>Telefone:</strong> <span id="modal-paciente-telefone"></span></p>
+                        <p><strong>Idade:</strong> <span id="modal-paciente-idade"></span></p>
+                        <p><strong>Altura:</strong> <span id="modal-paciente-altura"></span></p>
+                        <p><strong>Peso:</strong> <span id="modal-paciente-peso"></span></p>
+                        <p><strong>Entrada no sistema:</strong> <span id="modal-paciente-entrada"></span></p>
+                        <p><strong>Último login:</strong> <span id="modal-paciente-ultimo-login"></span></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+        </div>
+    </div>
 </main>
 {% endblock %}
