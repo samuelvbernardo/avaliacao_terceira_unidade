@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var consultaId = button.getAttribute('data-consulta-id');
             var form = document.getElementById('formCancelarConsulta');
             if (form && consultaId) {
-                form.action = `/consulta/${consultaId}/excluir/`; // ajuste conforme sua URL de exclusão
+                form.action = `/consulta/${consultaId}/excluir/`; 
             }
         });
     }

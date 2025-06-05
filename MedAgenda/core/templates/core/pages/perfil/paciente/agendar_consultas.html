@@ -56,12 +56,27 @@
                     <td>{{ consulta.horario|time:"H:i" }}</td>
                     <td>{{ consulta.get_status_display }}</td>
                     <td>
+                        <!-- Botão para abrir o modal de detalhes do médico -->
+                        <button 
+                            type="button"
+                            class="btn btn-secondary text-white btn-sm btn-detalhe-medico"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalDetalheMedico"
+                            data-nome="{{ consulta.medico.nome }}"
+                            data-especialidade="{{ consulta.medico.especialidade }}"
+                            data-crm="{{ consulta.medico.crm }}"
+                            data-email="{{ consulta.medico.email }}"
+                            data-telefone="{{ consulta.medico.telefone }}">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </button>
+                        <!-- Botão para cancelar consulta -->
                         <button 
                             type="button"
                             class="btn btn-danger btn-sm btn-cancelar-consulta"
                             data-bs-toggle="modal"
                             data-bs-target="#modalCancelarConsulta"
-                            data-consulta-id="{{ consulta.pk }}"><i class="fa-solid fa-rectangle-xmark"></i>
+                            data-consulta-id="{{ consulta.pk }}">
+                            <i class="fa-solid fa-rectangle-xmark"></i>
                         </button>
                     </td>
                 </tr>
@@ -93,6 +108,38 @@
             </form>
         </div>
     </div>
-</div>
+    </div>
+    <!-- Modal Detalhes do Médico -->
+    <div class="modal fade" id="modalDetalheMedico" tabindex="-1" aria-labelledby="modalDetalheMedicoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDetalheMedicoLabel">Detalhes do Médico</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Nome:</strong> <span id="medicoNome"></span></p>
+            <p><strong>Especialidade:</strong> <span id="medicoEspecialidade"></span></p>
+            <p><strong>CRM:</strong> <span id="medicoCRM"></span></p>
+            <p><strong>Email:</strong> <span id="medicoEmail"></span></p>
+            <p><strong>Telefone:</strong> <span id="medicoTelefone"></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </main>
+<script>
+document.querySelectorAll('.btn-detalhe-medico').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('medicoNome').textContent = btn.getAttribute('data-nome');
+        document.getElementById('medicoEspecialidade').textContent = btn.getAttribute('data-especialidade');
+        document.getElementById('medicoCRM').textContent = btn.getAttribute('data-crm');
+        document.getElementById('medicoEmail').textContent = btn.getAttribute('data-email');
+        document.getElementById('medicoTelefone').textContent = btn.getAttribute('data-telefone');
+    });
+});
+</script>
 {% endblock %}

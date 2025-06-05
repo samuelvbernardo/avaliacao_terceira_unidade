@@ -1,7 +1,6 @@
 {% extends "core/base/base_users.html" %}
 
 {% load static %}
-
 {% load tz %}
 
 {% block title %}Consultas do Médico{% endblock %}
@@ -38,7 +37,20 @@
                 <td>{{ consulta.get_status_display }}</td>
                 <td>
                     {% if consulta.status == 'A' %}
-                        <!-- Botão para abrir o modal -->
+                        <!-- Botão para abrir o modal de detalhes do paciente -->
+                        <button 
+                            class="btn btn-secondary btn-sm text-white btn-detalhe-paciente"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalDetalhePaciente"
+                            data-nome="{{ consulta.paciente.nome }}"
+                            data-email="{{ consulta.paciente.email }}"
+                            data-telefone="{{ consulta.paciente.telefone }}"
+                            data-idade="{{ consulta.paciente.idade }}"
+                            data-peso="{{ consulta.paciente.peso }}"
+                            data-altura="{{ consulta.paciente.altura }}">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </button>
+                        <!-- Botão para abrir o modal de finalizar consulta -->
                         <button 
                             class="btn btn-success btn-sm" 
                             data-bs-toggle="modal" 
@@ -62,7 +74,30 @@
     </table>
 </main>
 
-<!-- Modal -->
+<!-- Modal Detalhes do Paciente -->
+<div class="modal fade" id="modalDetalhePaciente" tabindex="-1" aria-labelledby="modalDetalhePacienteLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDetalhePacienteLabel">Detalhes do Paciente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Nome:</strong> <span id="pacienteNome"></span></p>
+        <p><strong>Email:</strong> <span id="pacienteEmail"></span></p>
+        <p><strong>Telefone:</strong> <span id="pacienteTelefone"></span></p>
+        <p><strong>Idade:</strong> <span id="pacienteIdade"></span></p>
+        <p><strong>Peso:</strong> <span id="pacientePeso"></span></p>
+        <p><strong>Altura:</strong> <span id="pacienteAltura"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Finalizar Consulta -->
 <div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="finalizarModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -87,24 +122,16 @@
   </div>
 </div>
 
-<!-- Modal de confirmação de cancelamento -->
-    <div class="modal fade" id="modalCancelarConsulta" tabindex="-1" aria-labelledby="modalCancelarConsultaLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="formCancelarConsulta">
-                {% csrf_token %}
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCancelarConsultaLabel">Cancelar Consulta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza que deseja cancelar esta consulta?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                    <button type="submit" class="btn btn-danger">Sim, cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+<script>
+document.querySelectorAll('.btn-detalhe-paciente').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('pacienteNome').textContent = btn.getAttribute('data-nome');
+        document.getElementById('pacienteEmail').textContent = btn.getAttribute('data-email');
+        document.getElementById('pacienteTelefone').textContent = btn.getAttribute('data-telefone');
+        document.getElementById('pacienteIdade').textContent = btn.getAttribute('data-idade');
+        document.getElementById('pacientePeso').textContent = btn.getAttribute('data-peso');
+        document.getElementById('pacienteAltura').textContent = btn.getAttribute('data-altura');
+    });
+});
+</script>
 {% endblock %}
