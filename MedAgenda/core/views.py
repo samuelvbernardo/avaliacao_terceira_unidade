@@ -285,19 +285,23 @@ class ConsultasAgendadasMedicoView(ListView):
     template_name = "core/pages/perfil/medico/consultas_medico.html"
     paginate_by = 8
 
+
+class ConsultasAgendadasAdminView(ListView):
+    model = Consulta
+    template_name = 'core/pages/perfil/administrador/consultas_agendadas.html'
+    context_object_name = 'consultas'
+
     def get_queryset(self):
-        return Consulta.objects.filter(
-            medico__user=self.request.user,
-            status='A'
-        ).order_by('data', 'horario')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if hasattr(self.request.user, 'medico'):
-            context['medico'] = self.request.user.medico
-        if hasattr(self.request.user, 'paciente'):
-            context['paciente'] = self.request.user.paciente
-        return context
+        queryset = Consulta.objects.filter(status='A').order_by('data', 'horario')
+        q = self.request.GET.get('q')
+        if q:
+            queryset = queryset.filter(
+                Q(paciente__nome__icontains=q) |
+                Q(medico__nome__icontains=q) |
+                Q(medico__especialidade__icontains=q)
+            )
+        return queryset
+
     
 class MedicoDeleteView(LoginRequiredMixin, DeleteView):
     model = Medico

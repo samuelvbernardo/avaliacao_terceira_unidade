@@ -12,7 +12,7 @@ from .views import (
     BuscarMedicosView,
     BuscarPacientesView,
     ConsultasAgendadasMedicoView,
-    AvaliarConsultaView
+    AvaliarConsultaView, ConsultasAgendadasAdminView
 )
 
 urlpatterns = [
@@ -36,4 +36,5 @@ urlpatterns = [
     path('tabela-pacientes/', BuscarPacientesView.as_view(), name='tabela_pacientes'),
     path('consultas/<int:pk>/avaliar/', AvaliarConsultaView.as_view(), name='avaliar_consulta'),
     path('consultas/', ConsultasAgendadasMedicoView.as_view(), name='consultas_medico'),
+    path('consultas-admin/', ConsultasAgendadasAdminView.as_view(), name='consultas_admin'),
 ]
