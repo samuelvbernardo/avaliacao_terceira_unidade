@@ -19,19 +19,6 @@
                             {{ consulta.tipo }}
                         </h3>
                         <p class="card-text text-secondary">
-                            <i class="fa-solid fa-calendar-check"></i> <strong>Status:</strong> 
-                            {% if consulta.status == 'P' %}
-                                <span class="text-success">Pendente</span>
-                            {% elif consulta.status == 'C' %}
-                                <span class="text-primary">Confirmada</span>
-                            {% elif consulta.status == 'A' %}
-                                <span class="text-warning">Aguardando</span>
-                            {% elif consulta.status == 'F' %}
-                                <span class="text-danger">Finalizada</span>
-                            {% endif %}
-                            
-                        </p>
-                        <p class="card-text text-secondary">
                             <i class="fa-solid fa-user-doctor"></i> <strong>Médico:</strong> {{ consulta.medico }}
                         </p>
                         <p class="card-text text-secondary">
@@ -43,6 +30,11 @@
                         <p class="card-text text-secondary">
                             <i class="fa-solid fa-clock"></i> <strong>Horário:</strong> {{ consulta.horario|time:"H:i"}}
                         </p>
+                        {% if consulta.observacoes %}
+                        <p class="card-text text-secondary">
+                            <i class="fa-solid fa-file-lines"></i> <strong>Observações:</strong> {{ consulta.observacoes }}
+                        </p>
+                        {% endif %}
                         <label class="form-label text-secondary">
                             <i class="fa-solid fa-star"></i> <strong>Avaliação:</strong>
                         </label>
