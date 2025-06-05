@@ -53,7 +53,7 @@ O **MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o ge
 
 - **Backend:** Django (Python)
 - **Frontend:** HTML, Bootstrap, JavaScript (modais, AJAX)
-- **Banco de Dados:** SQLite (desenvolvimento) e Postgree (banco final)
+- **Banco de Dados:** SQLite (desenvolvimento) e PostgreSQL (banco final)
 - **Admin Django** customizado
 
 ---
@@ -71,7 +71,7 @@ O **MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o ge
 
 ## 6. Pontos de Atenção e Melhorias
 
-- Validação de dados mais robusta.
+- Validação de dados mais robusta
 - Tratamento de exceções nas views
 - Internacionalização das mensagens
 - Testes automatizados
@@ -79,27 +79,27 @@ O **MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o ge
 
 ---
 
-## 7. Divisão do Desenvolvimento (Equipe: Samuel, , Fabio, Kauã, Paulo)
+## 7. Divisão do Desenvolvimento (Equipe: Samuel, Fabio, Kauã, Paulo)
 
 1. **Backend - Modelos e Banco de Dados**
-   - Modelos, relacionamentos, validações, migrations
-   - Responsável: Samuel
+   - Modelos, relacionamentos, validações, migrations  
+   - **Responsável:** Samuel
 
 2. **Backend - Views, Regras de Negócio e URLs**
-   - Views (CBV/FBV), regras de negócio, rotas/URLs
-   - Responsáveis: Fabio e Samuel
+   - Views (CBV/FBV), regras de negócio, rotas/URLs  
+   - **Responsáveis:** Fabio e Samuel
 
 3. **Frontend - Templates e Experiência do Usuário**
-   - Templates HTML, arquivos base, partials, responsividade
-   -Responsavel: Kauã
+   - Templates HTML, arquivos base, partials, responsividade  
+   - **Responsável:** Kauã
 
 4. **Frontend - JavaScript, AJAX e Interatividade**
-   - Scripts JS para busca dinâmica, modais, validações, centralização dos scripts
-   Responsável: Paulo
+   - Scripts JS para busca dinâmica, modais, validações, centralização dos scripts  
+   - **Responsável:** Paulo
 
 ---
 
-## 9. Conclusão
+## 8. Conclusão
 
 O MedAgenda é uma solução completa para clínicas, promovendo organização, segurança e facilidade de uso para todos os perfis de usuários.  
 O projeto está pronto para ser expandido e adaptado conforme as necessidades da instituição.
