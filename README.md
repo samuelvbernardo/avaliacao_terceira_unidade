@@ -5,7 +5,7 @@
 
 ## 1. Introdução e Visão Geral
 
-O **MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o gerenciamento de consultas em clínicas médicas, integrando médicos, pacientes e administradores em um único sistema. O objetivo é organizar o fluxo de agendamentos, histórico e informações de cada perfil, promovendo segurança e praticidade.
+**MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o gerenciamento de consultas em clínicas médicas, integrando médicos, pacientes e administradores em um único sistema. O objetivo é organizar o fluxo de agendamentos, histórico e informações de cada perfil, promovendo segurança e praticidade.
 
 ---
 
@@ -79,31 +79,10 @@ O **MedAgenda** é uma plataforma web desenvolvida em Django para facilitar o ge
 
 ---
 
-## 7. Divisão do Desenvolvimento (Equipe: Samuel, Fabio, Kauã, Paulo)
+## 7. Conclusão
 
-1. **Backend - Modelos e Banco de Dados**
-   - Modelos, relacionamentos, validações, migrations  
-   - **Responsável:** Samuel
-
-2. **Backend - Views, Regras de Negócio e URLs**
-   - Views (CBV/FBV), regras de negócio, rotas/URLs  
-   - **Responsáveis:** Fabio e Samuel
-
-3. **Frontend - Templates e Experiência do Usuário**
-   - Templates HTML, arquivos base, partials, responsividade  
-   - **Responsável:** Kauã
-
-4. **Frontend - JavaScript, AJAX e Interatividade**
-   - Scripts JS para busca dinâmica, modais, validações, centralização dos scripts  
-   - **Responsável:** Paulo
+O projeto está pronto para ser expandido e adaptado conforme as necessidades de uso.
 
 ---
 
-## 8. Conclusão
-
-O MedAgenda é uma solução completa para clínicas, promovendo organização, segurança e facilidade de uso para todos os perfis de usuários.  
-O projeto está pronto para ser expandido e adaptado conforme as necessidades da instituição.
-
----
-
-**Dúvidas ou sugestões? Estamos à disposição!**
+**Dúvidas ou sugestões? Estou à disposição!**
